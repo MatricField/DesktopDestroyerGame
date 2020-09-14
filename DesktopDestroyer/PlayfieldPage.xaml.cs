@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,8 +39,21 @@ namespace DesktopDestroyer
 
         public PlayfieldPage()
         {
-            BackgroundImage = ScreenCaptureHelper.CaptureScreen();
             InitializeComponent();
+            LoadScreen();
+        }
+
+        private void LoadScreen()
+        {
+            using (var bitmap = ImageHelper.CaptureScreen())
+            using (var newBitmap = (System.Drawing.Bitmap)ImageHelper.To8bpp(bitmap))
+            {
+                    BackgroundImage = Imaging.CreateBitmapSourceFromHBitmap(
+                        newBitmap.GetHbitmap(),
+                        IntPtr.Zero,
+                        Int32Rect.Empty,
+                        BitmapSizeOptions.FromEmptyOptions());    
+            }
         }
 
         private void DrawingBoard_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
