@@ -35,7 +35,7 @@ namespace DesktopDestroyer
         public static Bitmap CaptureScreen()
         {
             ShellObject.ToggleDesktop();
-            Thread.Sleep(10);
+            Thread.Sleep(100);
             var screenBmp = new Bitmap(
                 (int)SystemParameters.PrimaryScreenWidth,
                 (int)SystemParameters.PrimaryScreenHeight,
